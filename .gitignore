@@ -1,0 +1,15 @@
+.env
+/data/*
+.pytest_cache/
+
+venv/
+.venv/
+
+.idea/
+
+*.log
+
+.DS_Store
+Thumbs.db
+
+*.egg-info/
