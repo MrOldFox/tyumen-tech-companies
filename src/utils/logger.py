@@ -29,4 +29,4 @@ def setup_logging(log_file=Config.LOG_DIR):
     return logger
 
 
-logger = setup_logging()
+logger = setup_logging(Config.LOG_DIR)

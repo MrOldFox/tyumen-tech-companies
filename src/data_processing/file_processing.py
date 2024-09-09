@@ -103,7 +103,7 @@ async def process_zip_file(zip_path=Config.ZIP_FILE_PATH):
                                 for batch in process_json_file(json_file):
                                     companies_found += len(batch)  # Увеличиваем счётчик найденных компаний
                                     companies.extend(batch)  # Добавляем компании в список
-                                    if len(companies) >= 100:  # Как только набралось 100, записываем в БД
+                                    if len(companies) >= 1000:  # Как только набралось 100, записываем в БД
                                         await insert_companies_into_db(companies)
                                         companies = []  # Очищаем список для следующих записей
                                 if companies:  # Если остались не записанные компании, то тоже добавляем их в БД
@@ -194,8 +194,8 @@ def process_json_file(json_file):
                 'address': address,
             })
 
-            # Если обработано уже 100 компаний, возвращаем их для записи
-            if len(processed_companies) >= 100:
+            # Если обработано уже 1000 компаний, возвращаем их для записи
+            if len(processed_companies) >= 1000:
                 yield processed_companies
                 processed_companies = []  # Очищаем список для следующей порции
 
