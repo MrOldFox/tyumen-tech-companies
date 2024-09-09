@@ -10,10 +10,9 @@ import ijson
 from config import Config
 from src.db.db_handler import insert_companies_into_db
 from src.utils.logger import logger
-from datetime import datetime, timedelta
 
 
-async def is_file_new(file_path=Config.ZIP_FILE_PATH, max_age_days=1):
+async def is_file_new(file_path=Config.ZIP_FILE_PATH):
     """
     Проверяет есть ли с данными.
     """
@@ -52,7 +51,7 @@ async def get_file(url, local_path=Config.ZIP_FILE_PATH):
     Асинхронная функция, которая проверяет, есть ли уже файл.
     Если файл отсутствует, то функция скачает новый.
     """
-    # Проверяем, старый ли файл или его вообще нет
+    # Проверяем что файл существует
     if await is_file_new(local_path):
         # Если файл отсутствует, выводим сообщение в лог и скачиваем его
         logger.info(f"Файл {local_path} отсутствует. Скачиваем новый файл.")
@@ -103,7 +102,7 @@ async def process_zip_file(zip_path=Config.ZIP_FILE_PATH):
                                 for batch in process_json_file(json_file):
                                     companies_found += len(batch)  # Увеличиваем счётчик найденных компаний
                                     companies.extend(batch)  # Добавляем компании в список
-                                    if len(companies) >= 1000:  # Как только набралось 100, записываем в БД
+                                    if len(companies) >= 1000:  # Как только набралось 1000, записываем в БД
                                         await insert_companies_into_db(companies)
                                         companies = []  # Очищаем список для следующих записей
                                 if companies:  # Если остались не записанные компании, то тоже добавляем их в БД
