@@ -50,7 +50,7 @@ Index('idx_company_okved', Company.okved)
 Index('idx_company_inn', Company.inn, unique=True)
 
 
-async def insert_companies_bulk(session, companies_data, batch_size=100):
+async def insert_companies_bulk(session, companies_data, batch_size=1000):
     """
     Асинхронная функция для массовой вставки компаний в БД через батчм.
     """
