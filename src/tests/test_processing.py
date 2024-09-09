@@ -11,7 +11,7 @@ async def test_is_file_stale_file_not_exists():
     # Как будто файла нет.
     with mock.patch('os.path.exists', return_value=False):
         # Вызываем функцию, передавая фиктивный путь к файлу
-        result = await is_file_new('dummy_path', max_age_days=1)
+        result = await is_file_new('dummy_path')
         # Проверяем, что результат True, потому что файла нет
         assert result == True
 
